@@ -58,7 +58,23 @@ Pour construire le projet il vous faut :
   $> node app.js
   ```
 4. Ouvrir votre navigateur
-5. Aller à l'adresse `localhost:3000`
+5. Aller à l'adresse `localhost:3000` 
 
-# Auteurs
+### Utilisation
+
+1. Vous pouvez soit : 
+- Déployer l'application vous même
+- Ouvrir votre navigateur et vous rendre sur https://monopollytweb2016.herokuapp.com/ 
+2. Connectez-vous.
+3. Profitez ! 
+
+**Remarque**: Vous ne pouvez pour le moment pas utiliser l'application, celle-ci est encore en cours de construction/mise-à-jour/maintenance jusqu'au 20 janvier.
+
+## Pour plus d'informations
+
+Visitez notre page de présentation :
+
+ - https://ornidon.github.io/MonoPollY/
+
+## Auteurs
 Ioannis Noukakis & Thbaut Loiseau
