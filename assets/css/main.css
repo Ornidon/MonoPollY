@@ -2289,6 +2289,12 @@
 
 /* Image */
 
+	.specialimage
+	{
+		width: 50%;
+		height: 50%;
+	}
+
 	.image {
 		border-radius: 4px;
 		border: 0;
