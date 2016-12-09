@@ -60,7 +60,7 @@ Pour construire le projet il vous faut :
 4. Ouvrir votre navigateur
 5. Aller à l'adresse `localhost:3000` 
 
-### Utilisation
+## Utilisation
 
 1. Vous pouvez soit : 
 - Déployer l'application vous même
@@ -69,6 +69,13 @@ Pour construire le projet il vous faut :
 3. Profitez ! 
 
 **Remarque**: Vous ne pouvez pour le moment pas utiliser l'application, celle-ci est encore en cours de construction/mise-à-jour/maintenance jusqu'au 20 janvier.
+
+## Technologies 
+Pour ce projet nous utilisons les technologies suivantes :
+ - Angular2
+ - MySQL
+ - Node.js
+ - Express.js
 
 ## Pour plus d'informations
 
