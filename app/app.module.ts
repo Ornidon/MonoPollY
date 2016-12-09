@@ -3,7 +3,9 @@ import { BrowserModule }     from '@angular/platform-browser';
 import { FormsModule }       from '@angular/forms';
 import { RouterModule }      from '@angular/router';
 import { AppComponent }      from './app.component';
-import { HttpModule }        from '@angular/http';
+import { NgbModule }         from '@ng-bootstrap/ng-bootstrap';
+import { HelloComponent } from './hello.component'
+
 
 import { AppRoutingModule }  from './app-routing.module';
 
@@ -11,11 +13,12 @@ import { AppRoutingModule }  from './app-routing.module';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+	  NgbModule.forRoot()
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    HelloComponent
   ],
   bootstrap: [ AppComponent ]
 })
