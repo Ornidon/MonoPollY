@@ -17,7 +17,7 @@ Voici la liste des principales caractéristiques demandés :
 
 Voici le flux de navigation attendu pour cette application :
 
-![Navigation flow](ressources/navigation-flow.png)
+![Navigation flow](ressources/User Flow.png)
 
 Les pages suivantes sont accessible lorsque l'utilisateur n'est pas authentifié :
 
