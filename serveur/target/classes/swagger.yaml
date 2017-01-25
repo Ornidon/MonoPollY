@@ -1,0 +1,556 @@
+# Example YAML to get you started quickly.
+# Be aware that YAML has indentation based scoping.
+# Code completion support is available so start typing for available options.
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "Alpha 1.0"
+  title: <Monopolly>
+
+host: localhost:8080
+schemes:
+  - http
+
+# Describe your paths here
+paths:
+  # This is a path endpoint. Change it.
+  /auth:
+    # This is a HTTP operation
+    post:
+      # Describe this verb here. Note: you can use markdown
+      summary: Authenticate
+      description: |
+        Authenticate a user
+      # This is array of GET operation parameters:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        # An example parameter that is in query and is required
+        -
+          name: user
+          in: body
+          description: user to be connected
+          required: true
+          schema:
+            $ref: '#/definitions/user'
+
+      # Expected responses for this operation:
+      responses:
+        # Response code
+        200:
+          description: Authentication sucessfull.
+          # A schema describing your response object.
+          # Use JSON Schema format
+          schema:
+            $ref: '#/definitions/token'
+        400:
+          description: Bad request.
+        401:
+          description: Bad credentials.
+
+  /user:
+    post:
+      summary: new user
+      description: |
+        Creates a new user. Username and password shall not be emtpy.
+      consumes:
+        - application/json
+      parameters:
+        -
+          name: user
+          in: body
+          description: user to be created
+          required: true
+          schema:
+            $ref: '#/definitions/user'
+
+      responses:
+        201:
+          description: Sucessfully created.
+        400:
+          description: Bad request.
+        409:
+          description: Already exists.
+
+    delete:
+      summary: delete user
+      description: |
+        Let a user delete himself
+      parameters:
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+
+      responses:
+        204:
+          description: user deleted successfully.
+        400:
+          description: invalid token or credentials.
+        403:
+          description: only you can delete yourself.
+
+  /user/rooms:
+    get:
+      summary: Gets your rooms
+      description: retrives a list of your rooms and your subscribed one.
+      produces:
+        - application/json
+      parameters:
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/completeRoom'
+        400:
+          description: Bad request.
+        403:
+          description: Forbidden.
+
+  /rooms:
+    post:
+      summary: New room
+      description: |
+        Creates a new room
+      consumes:
+        - application/json
+      parameters:
+        - name: room
+          in: body
+          description: room to be created
+          required: true
+          schema:
+            $ref: '#/definitions/room'
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+
+      responses:
+        201:
+          description: Sucessfully created.
+        400:
+          description: Bad request.
+        403:
+          description: Forbidden.
+
+  /rooms/{roomId}:
+    patch:
+      summary: Patches this room.
+      description: Patches this room.
+      parameters:
+        - name: roomId
+          in: path
+          description: room to be modified
+          required: true
+          type: integer
+          format: int64
+        - name: room
+          in: body
+          description: room to be patched
+          required: true
+          schema:
+            $ref: '#/definitions/room'
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+        401:
+          description: You don't own this room.
+        403:
+          description: You don't have a token.
+        404:
+          description: not found.
+
+    delete:
+      summary: Deletes this room.
+      description: Deletes this room.
+      parameters:
+        - name: roomId
+          in: path
+          description: room to be deleted
+          required: true
+          type: integer
+          format: int64
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+        401:
+          description: You don't own this room.
+        403:
+          description: You don't have a token.
+        404:
+          description: not found.
+
+    get:
+      summary: Gets this room.
+      description: Gets this room. Rooms are visible by all.
+      parameters:
+        - name: roomId
+          in: path
+          description: room to be get
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/completeRoom'
+        404:
+          description: not found.
+
+    post:
+      summary: add a question
+      description: adds a question to your poll
+      consumes:
+        - application/json
+      parameters:
+        - name: roomId
+          in: path
+          description: the room
+          required: true
+          type: integer
+          format: int64
+        - name: question
+          in: body
+          description: Question to be added
+          required: true
+          schema:
+            $ref: '#/definitions/question'
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+
+      responses:
+        201:
+          description: OK
+          schema:
+            $ref: '#/definitions/completeQuestion'
+        401:
+          description: You don't own this room.
+        403:
+          description: You don't have a token.
+
+  /rooms/question/{qId}:
+    patch:
+      summary: patch this question
+      description: Update a question in your room. If users are using it, they will be notified instantly via websocket.
+      consumes:
+        - application/json
+      parameters:
+        - name: qId
+          in: path
+          description: the question
+          required: true
+          type: integer
+          format: int64
+        - name: question
+          in: body
+          description: question to be patched
+          required: true
+          schema:
+            $ref: '#/definitions/completeQuestion'
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK.
+        401:
+          description: Unauthorized.
+        403:
+          description: Forbidden.
+        404:
+          description: Not found.
+
+    delete:
+      summary: deletes a question
+      description: deletes a question of this room
+      parameters:
+        - name: qId
+          in: path
+          description: poll to be deleted
+          required: true
+          type: integer
+          format: int64
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+        401:
+          description: Unauthorized.
+        403:
+          description: Forbidden.
+        404:
+          description: Not found.
+
+    get:
+      summary: gets a question and its statistics
+      description: gets a question and its statistics a question of this room. This method is public.
+      parameters:
+        - name: qId
+          in: path
+          description: question to be retrived
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          schema:
+             $ref: '#/definitions/statisticalQuestion'
+        404:
+          description: Not found.
+
+  /answer/{aId}:
+    post:
+      summary: Posts an answer .
+      description: Posts an answer for a question. If this question is closed then it is not possible any longer.
+      parameters:
+        - name: aId
+          in: path
+          description: the id of the answer
+          required: true
+          type: integer
+          format: int64
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK. Returns the question with the correct answer.
+          schema:
+            $ref: '#/definitions/completeQuestion'
+        400:
+          description: Invalid answer object.
+        403:
+          description: You don't have a token.
+        404:
+          description: Question not found.
+        409:
+          description: You already have submitted an answer.
+
+  /subscribe/{roomName}:
+    post:
+      summary: Add yourself to a room.
+      description: Suscribes you to a room. Grants you the rights to post answers to the questions of this room.
+      parameters:
+        - name: roomName
+          in: path
+          description: the room to join.
+          required: true
+          type: string
+        - name: token
+          in: header
+          description: token to be passed as a header
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK - you have joined this room.
+        403:
+          description: You don't have a token.
+        404:
+          description: Room not found.
+        409:
+          description: You are already subscribed to this room.
+
+
+definitions:
+  user:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+
+  userDTO:
+    type: object
+    required:
+      - id
+      - username
+    properties:
+      id:
+        type: integer
+        format: int64
+      username:
+        type: string
+
+  token:
+    type: object
+    required:
+      - userId
+      - token
+    properties:
+      userId:
+        type: integer
+        format: int64
+      token:
+        type: string
+
+  room:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+
+  completeRoom:
+    type: object
+    required:
+      - id
+      - owner
+      - name
+      - questions
+    properties:
+      id:
+        type: integer
+        format: int64
+      owner:
+        type: integer
+        format: int64
+      name:
+        type: string
+      questions:
+        type: array
+        items:
+          $ref: '#/definitions/completeQuestion'
+
+  question:
+    type: object
+    required:
+      - body
+    properties:
+      body:
+        type: string
+      answers:
+        type: array
+        items:
+          $ref: '#/definitions/asnwer'
+
+  completeQuestion:
+    type: object
+    required:
+      - id
+      - body
+      - answers
+      - closed
+      - canAnswer
+    properties:
+      id:
+        type: integer
+        format: int64
+      body:
+        type: string
+      answers:
+        type: array
+        items:
+          $ref: '#/definitions/CompleteAsnwer'
+      closed:
+        type: boolean
+      canAnswer:
+        type: boolean
+
+  asnwer:
+    type: object
+    required:
+      - body
+      - isValid
+    properties:
+      body:
+        type: string
+      isValid:
+        type: boolean
+
+  CompleteAsnwer:
+    type: object
+    required:
+      - id
+      - body
+      - isValid
+    properties:
+      id:
+        type: integer
+        format: int64
+      body:
+        type: string
+      isValid:
+        type: boolean
+
+  statisticalQuestion:
+    type: object
+    required:
+      - id
+      - body
+      - answers
+      - closed
+    properties:
+      id:
+        type: integer
+        format: int64
+      body:
+        type: string
+      answers:
+        type: array
+        items:
+          $ref: '#/definitions/statisticalAnswer'
+      closed:
+        type: boolean
+
+  statisticalAnswer:
+    type: object
+    required:
+      - id
+      - body
+      - users
+      - isValid
+    properties:
+      id:
+        type: integer
+        format: int64
+      body:
+        type: string
+      users:
+        type: array
+        items:
+          $ref: '#/definitions/userDTO'
+      isValid:
+        type: boolean
+

@@ -39,13 +39,15 @@ Un utilisateur est définit par :
 
 ### Prérequis
 
-Pour lancer l'application il vous faut :
+Pour lancer et construire le projet du client il vous faut :
 
 - node 4.6.1
-
-Pour construire le projet il vous faut :
-
 - npm 2.15.9
+
+Pour lancer et construire le projet du serveur il vous faut:
+
+- java 1.8
+- maven 3.3.9
 
 ### Déploiment
 
@@ -60,22 +62,29 @@ Pour construire le projet il vous faut :
 4. Ouvrir votre navigateur
 5. Aller à l'adresse `localhost:3000` 
 
+### Construire un client déployable
+
+1. Lancer la commande suivante:
+```bash
+  $> npm run build
+  ```
+2. le client sera dans le fichier /dist
+
 ## Utilisation
 
 1. Vous pouvez soit : 
 - Déployer l'application vous même
-- Ouvrir votre navigateur et vous rendre sur https://monopollytweb2016.herokuapp.com/ 
+- Ouvrir votre navigateur et vous rendre sur https://monopollytweb.herokuapp.com/
 2. Connectez-vous.
 3. Profitez ! 
-
-**Remarque**: Vous ne pouvez pour le moment pas utiliser l'application, celle-ci est encore en cours de construction/mise-à-jour/maintenance jusqu'au 20 janvier.
 
 ## Technologies 
 Pour ce projet nous utilisons les technologies suivantes :
  - Angular2
+ - Typescript
+ - WebPack
  - MySQL
- - Node.js
- - Express.js
+ - SpringBoot
 
 ## Pour plus d'informations
 
