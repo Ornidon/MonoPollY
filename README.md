@@ -28,7 +28,6 @@ Les pages suivantes sont accessible lorsque l'utilisateur n'est pas authentifié
 Les pages suivantes ne sont accessible que lorsque l'utilisateur est authentifié :
 
   - Polls
-  - Statistics
 
 Un utilisateur est définit par :
 
@@ -47,28 +46,42 @@ Pour construire le projet il vous faut :
 
 - npm 2.15.9
 
-### Déploiment
+### Déploiment client
 
-1. Il vous faut cloner le répertoire
+1. Il vous faut cloner le répertoire (branche : frontend)
 2. Ouvrir un terminal dans le répertoire cloné
 3. Lancer les commandes suivantes :
 
   ```bash
   $> npm install
-  $> node app.js
+  $> npm run serve
   ```
 4. Ouvrir votre navigateur
 5. Aller à l'adresse `localhost:3000` 
+
+**Remarque**: Seul le client est lancé. Pour lancer le serveur avec la base de donnée veuillez suivre la procédure de Déploiment serveur. Il est possible de changer l'adresse du serveur en éditant le fichier config.json
+
+### Déploiment serveur
+
+1. Il vous faut cloner le répertoire (branche : server)
+2. Ouvrir un terminal dans le répertoire cloné
+3. Lancer la commande suivante :
+
+  ```bash
+  $> ./start.sh
+  ```
+4. Ouvrir votre navigateur
+5. Aller à l'adresse `localhost:8080/api` 
+
+**Remarque**: Vous pouvez configurer le secret des JSON web token en éditant le fichier JWT.properties.
 
 ## Utilisation
 
 1. Vous pouvez soit : 
 - Déployer l'application vous même
-- Ouvrir votre navigateur et vous rendre sur https://monopollytweb2016.herokuapp.com/ 
+- Ouvrir votre navigateur et vous rendre sur http://monopollytweb.herokuapp.com/ 
 2. Connectez-vous.
 3. Profitez ! 
-
-**Remarque**: Vous ne pouvez pour le moment pas utiliser l'application, celle-ci est encore en cours de construction/mise-à-jour/maintenance jusqu'au 20 janvier.
 
 ## Technologies 
 Pour ce projet nous utilisons les technologies suivantes :
