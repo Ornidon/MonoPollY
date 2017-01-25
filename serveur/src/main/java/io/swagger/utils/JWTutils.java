@@ -19,8 +19,7 @@ public class JWTutils {
             token = JWT.create()
                     .withIssuer("auth0")
                     .withClaim("id", id) //on passe le nom de l'app dans le Json web Token
-                    //TODO CONFIGURER LE SECRET EN UNE CLE RSA
-                    .sign(Algorithm.HMAC256("sdfghjkjhgfert6789opè753."));
+                    .sign(Algorithm.HMAC256(JWTConfig.secret));
         } catch (JWTCreationException exception){
             throw new RuntimeException("You need to enable Algorithm.HMAC256");
         } catch (UnsupportedEncodingException e) {
