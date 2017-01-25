@@ -1,0 +1,35 @@
+<!-- Banner -->
+<section id="banner">
+  <div class="content">
+    <div>
+        <h6>
+           Create a MonoPollY account
+        </h6>
+    </div>
+    <form>
+      <div class="form-group">
+        <label for="name">Nom d'utilisateur</label>
+        <input type="text" class="actions" id="name"
+              required
+              [(ngModel)]="registerModel.username" name="username">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" class="form-control" id="name"
+              required
+              [(ngModel)]="registerModel.password" name="password">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="cpassword">Comfirmez votre mot de passe</label>
+        <input type="password" class="form-control" id="name"
+              required
+              [(ngModel)]="cpassword" name="cpassword">
+      </div>
+      <br><br><br>
+      <button (click)="doRegister()" type="submit" class="button big">Go</button>
+    </form>
+    <p> Vous avez déjà un compte? Cliquez <a routerLink="/login">ici</a>.</p>
+  </div>
+</section>
